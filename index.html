@@ -1,109 +1,69 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Protótipo de roteiro gamificado para autoverificação de práticas de segurança da informação.">
-    <title>Jornada de Segurança da Informação</title>
-    <link rel="stylesheet" href="estilo.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Protótipo de roteiro gamificado para autoverificação de práticas de segurança da informação.">
+
+<title>Jornada de Segurança da Informação</title>
+
+<link rel="stylesheet" href="estilo.css">
+
 </head>
+
 <body>
-    <header class="topbar">
-        <div class="brand">
-            <span class="brand-mark" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    <path d="m9 12 2 2 4-4"/>
-                </svg>
-            </span>
-            <div>
-                <strong>Jornada de Segurança</strong>
-                <small>Autoverificação para servidores públicos</small>
-            </div>
-        </div>
-        <div id="progressArea" class="progress-area hidden">
-            <span id="progressText">0%</span>
-            <div class="progress-track">
-                <div id="progressBar" class="progress-bar"></div>
-            </div>
-        </div>
-    </header>
 
-    <main id="app" class="app"></main>
+<header class="topbar">
 
-    <footer class="footer">
-        <div class="footer-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            <span>Protótipo acadêmico — Segurança da Informação • UFSM</span>
-        </div>
-    </footer>
+<div class="brand">
 
-    <script src="app.js"></script>
-    <script>
-        const appContainer = document.getElementById('app');
-        let observer;
+<span class="brand-mark">SI</span>
 
-        function decorarTela() {
-            if (observer) observer.disconnect(); // Pausa o observador para evitar loop infinito
+<div>
 
-            // 1. Ilustração na tela inicial (.hero)
-            const hero = appContainer.querySelector('.hero');
-            if (hero && !hero.querySelector('.hero-illustration')) {
-                const div = document.createElement('div');
-                div.className = 'hero-illustration';
-                div.innerHTML = `
-                    <svg width="120" height="120" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="100" cy="100" r="92" fill="#E3EEF8"/>
-                        <circle cx="100" cy="100" r="74" stroke="#B8D4EE" stroke-width="2" stroke-dasharray="6 6"/>
-                        <path d="M100 32L152 53V96C152 131 129.8 162.5 100 172.5C70.2 162.5 48 131 48 96V53L100 32Z" fill="#174a7e"/>
-                        <path d="M100 32V172.5C129.8 162.5 152 131 152 96V53L100 32Z" fill="#2f7d9c"/>
-                        <rect x="78" y="90" width="44" height="35" rx="7" fill="#F59E0B"/>
-                        <path d="M86 90V79C86 71.3 92.3 65 100 65C107.7 65 114 71.3 114 79V90" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
-                        <circle cx="100" cy="105" r="4" fill="#0e3155"/>
-                        <path d="M100 109V115" stroke="#0e3155" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
-                `;
-                hero.insertBefore(div, hero.firstChild);
-            }
+<strong>Jornada de Segurança</strong>
 
-            // 2. Ícones nos cards de missão
-            const missionIcons = ['key-round', 'mail-warning', 'shield-check', 'monitor-lock', 'file-lock-2', 'award'];
-            appContainer.querySelectorAll('.mission-card').forEach((card, index) => {
-                if (!card.querySelector('.mission-icon-badge')) {
-                    const badge = document.createElement('div');
-                    badge.className = 'mission-icon-badge' + (card.classList.contains('locked') ? ' locked' : '');
-                    const iconName = card.classList.contains('locked') ? 'lock' : missionIcons[index % missionIcons.length];
-                    badge.innerHTML = `<i data-lucide="${iconName}"></i>`;
-                    card.insertBefore(badge, card.firstChild);
-                }
-            });
+<small>Autoverificação para servidores públicos</small>
 
-            // 3. Ícones nos itens informativos da capa
-            const infoIcons = ['compass', 'check-circle-2', 'award'];
-            appContainer.querySelectorAll('.info-item').forEach((item, index) => {
-                if (!item.querySelector('.info-icon')) {
-                    const span = document.createElement('div');
-                    span.className = 'info-icon';
-                    span.innerHTML = `<i data-lucide="${infoIcons[index % infoIcons.length]}"></i>`;
-                    item.insertBefore(span, item.firstChild);
-                }
-            });
+</div>
 
-            if (window.lucide) {
-                lucide.createIcons();
-            }
+</div>
 
-            if (observer) {
-                observer.observe(appContainer, { childList: true }); // Observa apenas trocas diretas de tela
-            }
-        }
+<div id="progressArea" class="progress-area hidden">
 
-        observer = new MutationObserver(decorarTela);
-        decorarTela();
-    </script>
+<span id="progressText">0%</span>
+
+<div class="progress-track">
+
+<div id="progressBar" class="progress-bar"></div>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<main id="app" class="app"></main>
+
+
+
+<footer class="footer">
+
+<p>Protótipo acadêmico — Segurança da Informação • UFSM</p>
+
+</footer>
+
+
+
+<script src="app.js"></script>
+
 </body>
+
 </html>
