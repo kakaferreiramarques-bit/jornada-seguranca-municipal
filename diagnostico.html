@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diagnóstico tecnológico e mapeamento de necessidades de TI para servidores municipais.">
+    <title>Diagnóstico Tecnológico e Mapeamento de Necessidades de TI</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        .inp{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font:inherit;background:#fff;color:var(--text)}
+        .inp:focus{outline:2px solid var(--secondary);outline-offset:1px}
+        textarea.inp{resize:vertical}
+        .outro{margin-top:10px}
+        .campo{margin-top:16px}
+        .campo label.rot{display:block;font-weight:700;margin-bottom:6px}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        .option-btn input{margin-right:8px}
+        .erro{color:var(--danger);font-weight:700;min-height:1.5em;margin:14px 0 0}
+        .consent{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14px}
+        .consent input{margin-top:4px}
+        @media (max-width:760px){.grid2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+            </span>
+            <div>
+                <strong>Diagnóstico de TI</strong>
+                <small>Mapeamento de necessidades nos setores</small>
+            </div>
+        </div>
+        <div id="progressArea" class="progress-area hidden">
+            <span id="progressText">0%</span>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
+    </header>
+
+    <main id="app" class="app"></main>
+
+    <footer class="footer">
+        <p>🔒 Protótipo acadêmico — Segurança da Informação • UFSM</p>
+    </footer>
+
+<script>
+/* ============ CONFIGURAÇÃO ============
+   Cole aqui a URL do aplicativo da Web do Google Apps Script (termina em /exec).
+   Sem a URL, as respostas ficam salvas só no navegador (modo de teste). */
+const ENDPOINT = "";
+
+const MODULOS = [
+ { t: "Módulo 1: Identificação e perfil operacional", campos: [
+  { id: "setor", q: "Secretaria / Setor / Departamento", tipo: "text", req: 1 },
+  { id: "cargo", q: "Função ou cargo do servidor", tipo: "text", req: 1 },
+  { id: "criticidade", q: "Criticidade do setor: se o computador ficar indisponível por 24 horas, qual é o impacto no atendimento ou serviço público?", tipo: "radio", req: 1, op: [
+    "Baixo|As tarefas podem ser adiadas sem prejuízo imediato.",
+    "Médio|Causa atrasos, mas existem alternativas manuais temporárias.",
+    "Alto|Interrompe serviços essenciais ao cidadão ou processos administrativos críticos."] }
+ ]},
+ { t: "Módulo 2: Inventário do equipamento e sistema operacional", campos: [
+  { id: "equipamento", q: "Tipo de equipamento", tipo: "radio", req: 1, op: ["Desktop (computador de mesa)", "Portátil (notebook)"] },
+  { id: "processador", q: "Processador (modelo aproximado)", tipo: "text" },
+  { id: "ram", q: "Memória RAM", tipo: "radio", req: 1, op: ["2 GB a 4 GB", "8 GB", "16 GB ou mais", "Não sei"] },
+  { id: "armazenamento_tipo", q: "Tipo de armazenamento", tipo: "radio", req: 1, op: ["HDD", "SSD", "Não sei"] },
+  { id: "armazenamento_qtd", q: "Quantidade total de armazenamento", tipo: "radio", req: 1, op: ["256 GB", "512 GB", "1 TB ou mais", "Não sei"] },
+  { id: "so", q: "Sistema operacional atual", tipo: "radio", req: 1, op: ["Windows 7 ou anterior", "Windows 10", "Windows 11", "Linux", "Outro / Não sei"], outro: ["Linux", "Se Linux, qual distribuição?"] },
+  { id: "licenca_windows", q: "Status do licenciamento do Windows", tipo: "radio", req: 1, op: ["Licença original / ativada institucionalmente", "Sem licença original / não regularizada", "Mensagem de aviso de ativação na tela", "Não sei"] }
+ ]},
+ { t: "Módulo 3: Mapeamento de software e navegação web", campos: [
+  { id: "softwares", q: "Softwares de gestão pública e legados: liste os programas ou sistemas indispensáveis para o seu trabalho diário (ex.: gestão financeira, tributária, emissão de documentos)", tipo: "area" },
+  { id: "navegador", q: "Dependência de navegador: os sistemas internos ou portais que você usa funcionam no Mozilla Firefox ou exigem o Google Chrome?", tipo: "radio", req: 1, op: ["Funcionam perfeitamente no Mozilla Firefox", "Exigem exclusivamente o Google Chrome", "Não utilizei o Mozilla Firefox / Não sei avaliar"] },
+  { id: "migracao_linux", q: "Viabilidade de migração para Linux: suas rotinas diárias dependem exclusivamente de programas do Windows (.exe) ou são, em sua maioria, baseadas em navegador e leitor de PDF?", tipo: "radio", req: 1, op: ["Dependência total de softwares específicos para Windows", "Trabalho 100% web/PDF (potencialmente compatível com Linux)"] }
+ ]},
+ { t: "Módulo 4: Permissões e segurança de acesso", campos: [
+  { id: "admin_local", q: "Privilégios de administrador local: sua conta permite instalar programas sem pedir senha da TI?", tipo: "radio", req: 1, op: ["Sim, consigo instalar qualquer programa", "Não, é exigida senha de administrador", "Não sei"] },
+  { id: "gestao_senhas", q: "Gestão de senhas: como você armazena as senhas dos sistemas que usa no dia a dia?", tipo: "radio", req: 1, op: ["Memorizadas / anotadas em papel", "Salvas automaticamente no navegador (Chrome/Firefox)", "Gerenciador de senhas (ex.: KeePassXC)"] }
+ ]},
+ { t: "Módulo 5: Percepção de risco e histórico de incidentes", campos: [
+  { id: "incidentes", q: "Histórico de incidentes: você já presenciou ou suspeitou de algum problema de segurança no seu setor? (marque todos que se aplicam)", tipo: "check", req: 1, op: ["E-mails falsos/suspeitos com links (phishing)", "Arquivos bloqueados ou indisponíveis (suspeita de ransomware)", "Lentidão excessiva por programas não autorizados/vírus", "Perda acidental de documentos sem cópia de segurança", "Nenhum dos anteriores", "Outro"], outro: ["Outro", "Se outro, descreva"] },
+  { id: "receio", q: "Principal receio operacional: qual a sua maior preocupação em relação ao uso do computador no trabalho?", tipo: "area" }
+ ]}
+];
+
+const KEY = "diagTI", KEY_OK = "diagTI_enviado";
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+let S = { etapa: 0, cad: {}, resp: {} };
+
+try { const d = JSON.parse(localStorage.getItem(KEY)); if (d) S = d; } catch (e) {}
+const salvar = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+function progresso(p) {
+    $("progressArea").classList.remove("hidden");
+    $("progressBar").style.width = p + "%";
+    $("progressText").textContent = Math.round(p) + "%";
+}
+
+/* ---------- Tela 0: apresentação + cadastro ---------- */
+function telaCadastro() {
+    $("progressArea").classList.add("hidden");
+    const c = S.cad;
+    $("app").innerHTML = `
+    <section class="card">
+        <div class="eyebrow">Diagnóstico tecnológico</div>
+        <h1 class="section-title">Mapeamento de necessidades de TI</h1>
+        <p class="section-subtitle">Este questionário mapeia equipamentos, softwares e rotinas de trabalho nos setores da prefeitura, para identificar necessidades operacionais e oportunidades de melhoria na segurança da informação.</p>
+        <div class="notice"><strong>Tempo estimado:</strong> 5 a 10 minutos.<br>
+        <strong>Confidencialidade:</strong> seus dados de identificação servem apenas para vincular as respostas e evitar duplicidade. Eles serão acessados somente pela equipe da pesquisa, e os resultados serão divulgados de forma agregada, sem identificar pessoas.</div>
+        <h3 style="margin-top:26px">Seu cadastro</h3>
+        <div class="campo"><label class="rot" for="c_nome">Nome completo</label><input class="inp" id="c_nome" autocomplete="name" value="${esc(c.nome)}"></div>
+        <div class="grid2">
+            <div class="campo"><label class="rot" for="c_email">E-mail</label><input class="inp" id="c_email" type="email" autocomplete="email" value="${esc(c.email)}"></div>
+            <div class="campo"><label class="rot" for="c_mat">Matrícula <span class="small">(opcional)</span></label><input class="inp" id="c_mat" value="${esc(c.matricula)}"></div>
+        </div>
+        <label class="consent"><input type="checkbox" id="c_ok" ${c.ok ? "checked" : ""}> <span>Li as informações acima e concordo com o uso dos meus dados para planejamento de TI e pesquisa acadêmica.</span></label>
+        <p class="erro" id="erro" role="alert"></p>
+        <div class="button-row"><button class="btn btn-primary" onclick="iniciar()">Começar</button></div>
+    </section>`;
+}
+
+function iniciar() {
+    const c = { nome: $("c_nome").value.trim(), email: $("c_email").value.trim(), matricula: $("c_mat").value.trim(), ok: $("c_ok").checked };
+    S.cad = c;
+    if (c.nome.length < 3) return erro("Informe seu nome completo.");
+    if (!/^\S+@\S+\.\S+$/.test(c.email)) return erro("Informe um e-mail válido.");
+    if (!c.ok) return erro("Marque a caixa de concordância para continuar.");
+    S.etapa = 1; salvar(); telaModulo();
+}
+
+/* ---------- Telas 1–5: módulos ---------- */
+function campoHTML(f, n) {
+    const v = S.resp[f.id], nome = "f_" + f.id;
+    let h = "";
+    if (f.tipo === "text") h = `<input class="inp" name="${nome}" value="${esc(v)}" autocomplete="off">`;
+    else if (f.tipo === "area") h = `<textarea class="inp" name="${nome}" rows="3">${esc(v)}</textarea>`;
+    else {
+        const t = f.tipo === "check" ? "checkbox" : "radio", sel = [].concat(v || []);
+        h = '<div class="option-list">' + f.op.map(o => {
+            const [a, b] = o.split("|");
+            return `<label class="option-btn"><input type="${t}" name="${nome}" value="${esc(a)}" ${sel.includes(a) ? "checked" : ""}><strong>${esc(a)}</strong>${b ? ": " + esc(b) : ""}</label>`;
+        }).join("") + "</div>";
+        if (f.outro) h += `<input class="inp outro" name="${nome}_outro" placeholder="${esc(f.outro[1])}" value="${esc(S.resp[f.id + "_detalhe"])}">`;
+    }
+    return `<div class="question"><h3>${n}. ${esc(f.q)}${f.req ? "" : ' <span class="small">(opcional)</span>'}</h3>${h}</div>`;
+}
+
+function telaModulo() {
+    const i = S.etapa - 1, m = MODULOS[i], ultimo = i === MODULOS.length - 1;
+    progresso((i / MODULOS.length) * 100);
+    $("app").innerHTML = `
+    <section class="card">
+        <div class="eyebrow">Etapa ${S.etapa} de ${MODULOS.length}</div>
+        <h1 class="section-title">${esc(m.t)}</h1>
+        ${m.campos.map((f, k) => campoHTML(f, k + 1)).join("")}
+        <p class="erro" id="erro" role="alert"></p>
+        <div class="button-row">
+            <button class="btn btn-ghost" onclick="voltar()">Voltar</button>
+            <button class="btn btn-primary" id="btnAvancar" onclick="avancar()">${ultimo ? "Enviar respostas" : "Continuar"}</button>
+        </div>
+    </section>`;
+    window.scrollTo(0, 0);
+}
+
+function coletar(m) {
+    const faltam = [];
+    m.campos.forEach(f => {
+        const els = [...document.getElementsByName("f_" + f.id)];
+        if (f.tipo === "check") S.resp[f.id] = els.filter(e => e.checked).map(e => e.value);
+        else if (f.tipo === "radio") { const c = els.find(e => e.checked); S.resp[f.id] = c ? c.value : ""; }
+        else S.resp[f.id] = els[0].value.trim();
+        if (f.outro) S.resp[f.id + "_detalhe"] = document.getElementsByName("f_" + f.id + "_outro")[0].value.trim();
+        const v = S.resp[f.id];
+        if (f.req && (Array.isArray(v) ? !v.length : !v)) faltam.push(f.q.split(":")[0]);
+    });
+    return faltam;
+}
+
+function avancar() {
+    const m = MODULOS[S.etapa - 1], faltam = coletar(m);
+    salvar();
+    if (faltam.length) return erro("Responda os itens obrigatórios: " + faltam.join("; ") + ".");
+    if (S.etapa < MODULOS.length) { S.etapa++; salvar(); telaModulo(); }
+    else enviar();
+}
+
+function voltar() {
+    coletar(MODULOS[S.etapa - 1]);
+    S.etapa--; salvar();
+    S.etapa < 1 ? telaCadastro() : telaModulo();
+}
+
+function erro(msg) { $("erro").textContent = msg; $("erro").scrollIntoView({ block: "center", behavior: "smooth" }); }
+
+/* ---------- Envio ---------- */
+function montarPayload() {
+    const p = { enviado_em: new Date().toISOString(), nome: S.cad.nome, email: S.cad.email, matricula: S.cad.matricula || "" };
+    MODULOS.forEach(m => m.campos.forEach(f => {
+        const v = S.resp[f.id];
+        p[f.id] = Array.isArray(v) ? v.join("; ") : (v || "");
+        if (f.outro) p[f.id + "_detalhe"] = S.resp[f.id + "_detalhe"] || "";
+    }));
+    return p;
+}
+
+async function enviar() {
+    const btn = $("btnAvancar"); btn.disabled = true; btn.textContent = "Enviando...";
+    const payload = montarPayload();
+    try {
+        if (ENDPOINT) {
+            await fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+        } else {
+            localStorage.setItem("diagTI_teste", JSON.stringify(payload));
+        }
+        localStorage.setItem(KEY_OK, ENDPOINT ? "1" : "teste");
+        localStorage.removeItem(KEY);
+        telaFim();
+    } catch (e) {
+        btn.disabled = false; btn.textContent = "Enviar respostas";
+        erro("Não foi possível enviar agora. Verifique sua conexão e tente de novo. Suas respostas continuam salvas neste aparelho.");
+    }
+}
+
+function telaFim() {
+    progresso(100);
+    const teste = localStorage.getItem(KEY_OK) === "teste";
+    $("app").innerHTML = `
+    <section class="card center">
+        <div class="eyebrow">Respostas enviadas</div>
+        <h1 class="section-title">Obrigado pela sua participação</h1>
+        <p class="section-subtitle">Suas respostas ajudam a planejar melhorias de TI e de segurança da informação nos setores da prefeitura.</p>
+        ${teste ? '<div class="notice"><strong>Modo de teste:</strong> o endereço de envio ainda não foi configurado, então as respostas ficaram salvas apenas neste navegador.</div>' : ""}
+        <div class="button-row" style="justify-content:center"><button class="btn btn-ghost" onclick="novo()">Preencher de novo</button></div>
+    </section>`;
+}
+
+function novo() {
+    localStorage.removeItem(KEY_OK);
+    S = { etapa: 0, cad: {}, resp: {} }; salvar(); telaCadastro();
+}
+
+/* ---------- Início ---------- */
+if (localStorage.getItem(KEY_OK)) telaFim();
+else if (S.etapa >= 1 && S.etapa <= MODULOS.length) telaModulo();
+else telaCadastro();
+</script>
+</body>
+</html>
