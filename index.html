@@ -44,10 +44,13 @@
 
     <script src="app.js"></script>
     <script>
-        // Injeta ilustrações e ícones automaticamente nas telas geradas pelo app.js
         const appContainer = document.getElementById('app');
-        const decorarTela = () => {
-            // 1. Adiciona ilustração de escudo na tela inicial (.hero) se ainda não existir
+        let observer;
+
+        function decorarTela() {
+            if (observer) observer.disconnect(); // Pausa o observador para evitar loop infinito
+
+            // 1. Ilustração na tela inicial (.hero)
             const hero = appContainer.querySelector('.hero');
             if (hero && !hero.querySelector('.hero-illustration')) {
                 const div = document.createElement('div');
@@ -67,7 +70,7 @@
                 hero.insertBefore(div, hero.firstChild);
             }
 
-            // 2. Adiciona ícones nos cards de missão (.mission-card)
+            // 2. Ícones nos cards de missão
             const missionIcons = ['key-round', 'mail-warning', 'shield-check', 'monitor-lock', 'file-lock-2', 'award'];
             appContainer.querySelectorAll('.mission-card').forEach((card, index) => {
                 if (!card.querySelector('.mission-icon-badge')) {
@@ -79,7 +82,7 @@
                 }
             });
 
-            // 3. Adiciona ícones nos itens informativos da capa (.info-item)
+            // 3. Ícones nos itens informativos da capa
             const infoIcons = ['compass', 'check-circle-2', 'award'];
             appContainer.querySelectorAll('.info-item').forEach((item, index) => {
                 if (!item.querySelector('.info-icon')) {
@@ -90,11 +93,16 @@
                 }
             });
 
-            if (window.lucide) lucide.createIcons();
-        };
+            if (window.lucide) {
+                lucide.createIcons();
+            }
 
-        const observer = new MutationObserver(decorarTela);
-        observer.observe(appContainer, { childList: true, subtree: true });
+            if (observer) {
+                observer.observe(appContainer, { childList: true }); // Observa apenas trocas diretas de tela
+            }
+        }
+
+        observer = new MutationObserver(decorarTela);
         decorarTela();
     </script>
 </body>
