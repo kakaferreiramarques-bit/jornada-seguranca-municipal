@@ -982,10 +982,58 @@ margin-top: 24px;
 
 
 .hero,
+    .card {
+        padding: 22px;
+    }
+}
 
-.card {
+/* === ILUSTRAÇÕES EM CSS PURO (LEVE E SEM TRAVAMENTOS) === */
+body {
+    background-color: #eef3f7;
+    background-image: radial-gradient(#cbd8e4 1px, transparent 1px);
+    background-size: 24px 24px;
+}
 
-padding: 22px;
+.brand-mark {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 4px 12px rgba(23, 74, 126, 0.25);
+}
+
+/* Desenho de Escudo com Cadeado no topo da tela inicial */
+.hero::before {
+    content: "";
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 200 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='92' fill='%23E3EEF8'/%3E%3Ccircle cx='100' cy='100' r='74' stroke='%23B8D4EE' stroke-width='3' stroke-dasharray='6 6'/%3E%3Cpath d='M100 32L152 53V96C152 131 129.8 162.5 100 172.5C70.2 162.5 48 131 48 96V53L100 32Z' fill='%23174a7e'/%3E%3Cpath d='M100 32V172.5C129.8 162.5 152 131 152 96V53L100 32Z' fill='%232f7d9c'/%3E%3Crect x='78' y='90' width='44' height='35' rx='7' fill='%23F59E0B'/%3E%3Cpath d='M86 90V79C86 71.3 92.3 65 100 65C107.7 65 114 71.3 114 79V90' stroke='%23FFFFFF' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='100' cy='105' r='4' fill='%230e3155'/%3E%3Cpath d='M100 109V115' stroke='%230e3155' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Destaque visual nos cartões de missão */
+.mission-card {
+    border-top: 4px solid var(--primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mission-card:not(.locked):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(20, 50, 80, 0.12);
+}
+
+.mission-card.locked {
+    border-top-color: var(--border);
+}
+
+.mission-card.locked .mission-number::before {
+    content: "🔒 ";
+}
+
+.mission-card:not(.locked) .mission-number::before {
+    content: "🛡️ ";
+}
 
 }
 
