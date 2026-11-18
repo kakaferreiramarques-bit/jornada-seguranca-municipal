@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Protótipo de roteiro gamificado para autoverificação de práticas de segurança da informação.">
+    <title>Jornada de Segurança da Informação</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+            </span>
+            <div>
+                <strong>Jornada de Segurança</strong>
+                <small>Autoverificação para servidores públicos</small>
+            </div>
+        </div>
+        <div id="progressArea" class="progress-area hidden">
+            <span id="progressText">0%</span>
+            <div class="progress-track">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main id="app" class="app"></main>
+
+    <footer class="footer">
+        <p>🔒 Protótipo acadêmico — Segurança da Informação • UFSM</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="ilustracoes.js"></script>
+</body>
+</html>
