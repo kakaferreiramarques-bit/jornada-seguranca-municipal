@@ -1,16 +1,14 @@
 /*
- * Jornada de Segurança da Informação
- * Protótipo acadêmico
- *
- * V1:
- * - diagnóstico
- * - 5 missões
- * - decisões e consequências
- * - feedback imediato
- * - pontuação
- * - análise por tema
- * - recomendações de microlições
- * - armazenamento local no navegador
+- Jornada de Segurança da Informação
+- Protótipo acadêmico (Etapa 1: 2 Missões)
+- - diagnóstico
+- - 2 missões (Senhas e Phishing)
+- - decisões e consequências
+- - feedback imediato
+- - pontuação
+- - análise por tema
+- - recomendações de microlições
+- - armazenamento local no navegador
  */
 
 const state = {
@@ -201,270 +199,6 @@ const missions = [
                 ]
             }
         ]
-    },
-    {
-        id: "atualizacoes",
-        number: 3,
-        title: "Atualização Segura",
-        tag: "Atualizações e dispositivos",
-        description: "Tome decisões sobre atualizações, aplicativos e comportamento diante de alertas.",
-        microlesson: "Mantenha sistemas e aplicações atualizados conforme as políticas institucionais. Atualizações frequentemente corrigem vulnerabilidades conhecidas.",
-        questions: [
-            {
-                text: "Seu computador institucional informa que há uma atualização de segurança disponível. O que você faz?",
-                options: [
-                    {
-                        text: "Ignoro permanentemente para não interromper o trabalho.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Adiar indefinidamente atualizações pode manter vulnerabilidades conhecidas expostas.",
-                        level: "danger"
-                    },
-                    {
-                        text: "Sigo o procedimento institucional para instalar a atualização no momento adequado.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Boa decisão. Atualizações devem ser realizadas conforme as orientações da instituição.",
-                        level: "success"
-                    },
-                    {
-                        text: "Baixo uma versão do programa em um site qualquer para atualizar mais rápido.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Aplicativos devem ser obtidos de fontes autorizadas e confiáveis.",
-                        level: "danger"
-                    }
-                ]
-            },
-            {
-                text: "Você precisa de um aplicativo para uma tarefa de trabalho. O que deve fazer?",
-                options: [
-                    {
-                        text: "Baixar a primeira versão encontrada em um site de downloads.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Fontes desconhecidas podem distribuir software adulterado ou malicioso.",
-                        level: "danger"
-                    },
-                    {
-                        text: "Verificar se o aplicativo é autorizado e seguir o procedimento institucional.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Correto. A instalação deve seguir as regras e fontes aprovadas pela organização.",
-                        level: "success"
-                    },
-                    {
-                        text: "Pedir o instalador a qualquer colega.",
-                        points: 0,
-                        correct: false,
-                        feedback: "O arquivo pode estar desatualizado, adulterado ou não ser autorizado.",
-                        level: "warning"
-                    }
-                ]
-            },
-            {
-                text: "Uma atualização exige reiniciar o computador durante o expediente. O que é mais adequado?",
-                options: [
-                    {
-                        text: "Adiar indefinidamente.",
-                        points: 0,
-                        correct: false,
-                        feedback: "O adiamento contínuo pode prolongar a exposição a vulnerabilidades.",
-                        level: "warning"
-                    },
-                    {
-                        text: "Planejar a instalação conforme a orientação institucional e o impacto no trabalho.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Boa decisão. Segurança e continuidade do trabalho devem ser consideradas em conjunto.",
-                        level: "success"
-                    },
-                    {
-                        text: "Desativar as atualizações automáticas.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Desativar atualizações remove uma importante camada de manutenção de segurança.",
-                        level: "danger"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "acessos",
-        number: 4,
-        title: "Controle de Acessos",
-        tag: "Privilégios e contas",
-        description: "Avalie situações envolvendo permissões, contas institucionais e acesso a informações.",
-        microlesson: "Acessos devem ser compatíveis com a função desempenhada e revisados quando houver mudança de atividade, setor ou vínculo.",
-        questions: [
-            {
-                text: "Você muda de setor, mas continua com acessos antigos que não utiliza. O que deve fazer?",
-                options: [
-                    {
-                        text: "Manter os acessos porque talvez sejam úteis no futuro.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Privilégios desnecessários aumentam a superfície de exposição.",
-                        level: "warning"
-                    },
-                    {
-                        text: "Informar a mudança e solicitar revisão dos acessos.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Correto. A revisão de privilégios ajuda a manter os acessos compatíveis com a função.",
-                        level: "success"
-                    },
-                    {
-                        text: "Compartilhar os acessos antigos com colegas.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Credenciais e permissões não devem ser compartilhadas.",
-                        level: "danger"
-                    }
-                ]
-            },
-            {
-                text: "Um colega está ausente e pede para você utilizar a conta dele. Qual é a resposta adequada?",
-                options: [
-                    {
-                        text: "Aceitar, pois o trabalho precisa continuar.",
-                        points: 0,
-                        correct: false,
-                        feedback: "O compartilhamento de contas prejudica rastreabilidade e responsabilização.",
-                        level: "danger"
-                    },
-                    {
-                        text: "Solicitar acesso próprio e autorizado pelo procedimento institucional.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Boa decisão. Cada usuário deve utilizar credenciais próprias e autorizadas.",
-                        level: "success"
-                    },
-                    {
-                        text: "Usar a conta e depois alterar a senha.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Alterar a senha depois não resolve o problema de compartilhamento de conta.",
-                        level: "danger"
-                    }
-                ]
-            },
-            {
-                text: "Você encontra uma pasta com documentos que não precisa acessar para sua função. O que faz?",
-                options: [
-                    {
-                        text: "Abro os arquivos para ver o que existe.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Acesso a informações deve estar relacionado à necessidade funcional e às autorizações.",
-                        level: "warning"
-                    },
-                    {
-                        text: "Não acesso e comunico ao responsável caso pareça haver uma permissão indevida.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Correto. A existência de uma permissão inadequada deve ser comunicada pelos canais apropriados.",
-                        level: "success"
-                    },
-                    {
-                        text: "Faço uma cópia para ter como backup.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Copiar informações sem necessidade ou autorização cria novos riscos.",
-                        level: "danger"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: "incidentes",
-        number: 5,
-        title: "Resposta ao Incidente",
-        tag: "Comunicação e incidentes",
-        description: "Pratique a tomada de decisão quando algo anormal acontece no ambiente de trabalho.",
-        microlesson: "Ao identificar um possível incidente, preserve informações relevantes e comunique rapidamente pelo canal institucional definido. Evite ações improvisadas que possam apagar evidências.",
-        questions: [
-            {
-                text: "Seu computador começa a apresentar comportamento incomum após você abrir um arquivo. O que faz primeiro?",
-                options: [
-                    {
-                        text: "Ignoro e continuo trabalhando normalmente.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Um comportamento incomum pode indicar um evento de segurança e merece avaliação.",
-                        level: "warning"
-                    },
-                    {
-                        text: "Sigo o procedimento institucional de comunicação e, quando orientado, isolo o equipamento.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Boa decisão. A comunicação rápida permite que o responsável avalie e contenha o evento.",
-                        level: "success"
-                    },
-                    {
-                        text: "Apago todos os arquivos recentes para eliminar o problema.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Ações improvisadas podem destruir informações importantes para a análise do incidente.",
-                        level: "danger"
-                    }
-                ]
-            },
-            {
-                text: "Você percebe uma mensagem enviada da sua conta que não reconhece. O que deve fazer?",
-                options: [
-                    {
-                        text: "Apagar a mensagem e não comunicar.",
-                        points: 0,
-                        correct: false,
-                        feedback: "O evento pode indicar comprometimento da conta e deve ser comunicado.",
-                        level: "danger"
-                    },
-                    {
-                        text: "Comunicar pelo canal institucional e seguir as orientações para proteger a conta.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Correto. A comunicação rápida ajuda a reduzir possíveis impactos.",
-                        level: "success"
-                    },
-                    {
-                        text: "Enviar uma mensagem para todos dizendo que sua conta foi invadida.",
-                        points: 0,
-                        correct: false,
-                        feedback: "É preferível utilizar o canal oficial de resposta a incidentes para coordenar a comunicação.",
-                        level: "warning"
-                    }
-                ]
-            },
-            {
-                text: "Você identifica um possível vazamento de informação. Qual atitude é mais adequada?",
-                options: [
-                    {
-                        text: "Publicar nas redes sociais para alertar outras pessoas.",
-                        points: 0,
-                        correct: false,
-                        feedback: "A divulgação pública pode ampliar o impacto do incidente.",
-                        level: "danger"
-                    },
-                    {
-                        text: "Registrar o que foi observado e comunicar imediatamente pelo canal institucional.",
-                        points: 10,
-                        correct: true,
-                        feedback: "Boa decisão. O registro e a comunicação adequada ajudam na resposta ao evento.",
-                        level: "success"
-                    },
-                    {
-                        text: "Tentar investigar sozinho e apagar os rastros.",
-                        points: 0,
-                        correct: false,
-                        feedback: "Investigações improvisadas podem comprometer evidências ou ampliar o impacto.",
-                        level: "warning"
-                    }
-                ]
-            }
-        ]
     }
 ];
 
@@ -476,18 +210,6 @@ const microLessons = {
     phishing: {
         title: "Microlição — Identificação de phishing",
         text: "Antes de clicar, observe remetente, domínio, link, pedido e senso de urgência. Quando houver dúvida, confirme a solicitação por um canal oficial, sem utilizar o contato fornecido na própria mensagem suspeita."
-    },
-    atualizacoes: {
-        title: "Microlição — Atualizações",
-        text: "Sistemas e aplicações devem receber atualizações de segurança conforme as políticas da organização. Evite instalar programas de fontes desconhecidas ou desativar mecanismos de atualização sem autorização."
-    },
-    acessos: {
-        title: "Microlição — Privilégios e acessos",
-        text: "Acesso deve ser compatível com a necessidade de trabalho. Mudanças de função ou vínculo são momentos importantes para revisão de permissões."
-    },
-    incidentes: {
-        title: "Microlição — Comunicação de incidentes",
-        text: "Quando algo anormal acontecer, utilize o canal institucional de comunicação. Preserve informações relevantes e siga as orientações da equipe responsável, evitando ações improvisadas."
     }
 };
 
@@ -534,7 +256,9 @@ function loadState() {
 
     try {
         const data = JSON.parse(saved);
+        if (data.currentMission > missions.length) return false;
         Object.assign(state, data);
+        state.maxScore = missions.reduce((sum, m) => sum + m.questions.length * 10, 0);
         state.screen = "missions";
         return true;
     } catch {
@@ -544,6 +268,10 @@ function loadState() {
 
 function clearSavedState() {
     localStorage.removeItem("jornadaSeguranca");
+}
+
+function getCompletedMissionCount() {
+    return Math.min(state.currentMission, missions.length);
 }
 
 function setProgress(percent) {
@@ -599,6 +327,7 @@ function renderHome() {
 }
 
 function startJourney() {
+    clearSavedState();
     resetState();
     state.screen = "diagnostic";
     saveState();
@@ -643,16 +372,6 @@ function renderDiagnostic() {
             id: "diagPhishing",
             text: "Você verifica links e remetentes antes de clicar em mensagens inesperadas?",
             options: ["Sempre", "Às vezes", "Raramente"]
-        },
-        {
-            id: "diagUpdates",
-            text: "Você mantém sistemas e aplicativos atualizados conforme a orientação da instituição?",
-            options: ["Sempre", "Às vezes", "Raramente"]
-        },
-        {
-            id: "diagIncident",
-            text: "Você sabe qual canal institucional utilizar para comunicar um possível incidente?",
-            options: ["Sim", "Tenho dúvidas", "Não"]
         }
     ];
 
@@ -662,7 +381,7 @@ function renderDiagnostic() {
             <div class="option-list">
                 ${q.options.map((option, i) => `
                     <label class="option-btn">
-                        <input type="radio" name="${q.id}" value="${i}" ${i === 0 ? "" : ""}>
+                        <input type="radio" name="${q.id}" value="${i}">
                         ${option}
                     </label>
                 `).join("")}
@@ -672,7 +391,7 @@ function renderDiagnostic() {
 }
 
 function finishDiagnostic() {
-    const names = ["diagPassword", "diagMFA", "diagPhishing", "diagUpdates", "diagIncident"];
+    const names = ["diagPassword", "diagMFA", "diagPhishing"];
 
     const allAnswered = names.every(name =>
         document.querySelector(`input[name="${name}"]:checked`)
@@ -697,7 +416,7 @@ function renderMissionMap() {
             <div class="eyebrow">Etapa 2</div>
             <h1 class="section-title">Mapa da jornada</h1>
             <p class="section-subtitle">
-                Complete as cinco missões. Cada situação apresenta uma decisão,
+                Complete as duas missões. Cada situação apresenta uma decisão,
                 uma consequência e uma explicação prática.
             </p>
 
@@ -731,6 +450,13 @@ function renderMissionMap() {
                 ${completed} de ${missions.length} missões concluídas.
                 Pontuação atual: ${state.score}.
             </div>
+
+            ${completed >= missions.length ? `
+                <div class="button-row">
+                    <button class="btn btn-primary" onclick="renderResults()">Ver resultado final</button>
+                    <button class="btn btn-ghost" onclick="restartAll()">Reiniciar jornada</button>
+                </div>
+            ` : ""}
         </section>
     `;
 }
@@ -747,346 +473,206 @@ function renderQuestion() {
     const mission = missions[state.currentMission];
     const question = mission.questions[state.currentQuestion];
 
-    const answeredBefore = state.answers.find(
-        a => a.mission === mission.id && a.question === state.currentQuestion
-    );
-
-    if (answeredBefore) {
-        renderQuestion();
-        return;
-    }
-
     const totalQuestions = missions.reduce((sum, m) => sum + m.questions.length, 0);
-    const questionNumber = state.currentMission * 3 + state.currentQuestion + 1;
-    setProgress((questionNumber / totalQuestions) * 100);
+    setProgress((state.totalAnswers / totalQuestions) * 100);
 
     $("app").innerHTML = `
         <section class="card">
             <div class="mission-head">
                 <div>
-                    <div class="eyebrow">Missão ${mission.number} de ${missions.length}</div>
+                    <div class="eyebrow">Missão ${mission.number} de ${missions.length} • ${mission.tag}</div>
                     <h1 class="section-title">${mission.title}</h1>
-                    <p>${mission.description}</p>
-                    <span class="tag">${mission.tag}</span>
+                    <p>Questão ${state.currentQuestion + 1} de ${mission.questions.length}</p>
                 </div>
-                <div class="score-pill">Pontuação: ${state.score}</div>
+                <div class="score-pill">${state.score} pts</div>
             </div>
 
             <div class="question">
-                <span class="small">
-                    Questão ${state.currentQuestion + 1} de ${mission.questions.length}
-                </span>
-
-                <h2>${question.text}</h2>
-
-                <div class="option-list">
-                    ${question.options.map((option, index) => `
-                        <button
-                            class="option-btn"
-                            onclick="answerQuestion(${index})">
-                            ${option.text}
+                <h3>${question.text}</h3>
+                <div class="option-list" id="optionsContainer">
+                    ${question.options.map((opt, idx) => `
+                        <button class="option-btn" onclick="selectOption(${idx})">
+                            ${opt.text}
                         </button>
                     `).join("")}
                 </div>
-
-                <div id="feedback"></div>
             </div>
+
+            <div id="feedbackArea"></div>
         </section>
     `;
 }
 
-function answerQuestion(optionIndex) {
+function selectOption(optionIndex) {
     const mission = missions[state.currentMission];
     const question = mission.questions[state.currentQuestion];
     const option = question.options[optionIndex];
 
-    state.totalAnswers++;
-
-    if (option.correct) {
-        state.correctAnswers++;
-    }
+    const buttons = document.querySelectorAll("#optionsContainer .option-btn");
+    buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === optionIndex) {
+            btn.style.borderColor = "var(--primary)";
+            btn.style.fontWeight = "700";
+        }
+    });
 
     state.score += option.points;
+    state.totalAnswers += 1;
+    if (option.correct) state.correctAnswers += 1;
 
-    state.topicStats[mission.id].total++;
-    state.topicStats[mission.id].score += option.points;
-
-    if (option.correct) {
-        state.topicStats[mission.id].correct++;
+    if (!state.topicStats[mission.id]) {
+        state.topicStats[mission.id] = { correct: 0, total: 0, score: 0 };
     }
+    state.topicStats[mission.id].total += 1;
+    state.topicStats[mission.id].score += option.points;
+    if (option.correct) state.topicStats[mission.id].correct += 1;
 
     state.answers.push({
         mission: mission.id,
         question: state.currentQuestion,
-        option: optionIndex,
         correct: option.correct,
         points: option.points
     });
 
     saveState();
 
-    document.querySelectorAll(".option-btn").forEach(button => {
-        button.disabled = true;
-    });
+    const totalQuestions = missions.reduce((sum, m) => sum + m.questions.length, 0);
+    setProgress((state.totalAnswers / totalQuestions) * 100);
 
-    $("feedback").innerHTML = `
+    const isLastQuestion = state.currentQuestion + 1 >= mission.questions.length;
+
+    $("feedbackArea").innerHTML = `
         <div class="feedback ${option.level}">
-            <h3>${option.correct ? "✓ Boa decisão!" : "⚠ Atenção!"}</h3>
+            <h3>${option.correct ? "✓ Decisão segura" : "⚠ Ponto de atenção"}</h3>
             <p>${option.feedback}</p>
-            <p><strong>Pontuação desta decisão:</strong> ${option.points} pontos.</p>
-
-            <button class="btn btn-secondary"
-                    onclick="nextQuestion()">
-                ${isLastQuestion() ? "Concluir missão" : "Próxima situação"}
-            </button>
+            <div class="button-row">
+                <button class="btn btn-primary" onclick="nextStep()">
+                    ${isLastQuestion ? "Concluir missão" : "Próxima questão"}
+                </button>
+            </div>
         </div>
     `;
 }
 
-function isLastQuestion() {
+function nextStep() {
     const mission = missions[state.currentMission];
-    return state.currentQuestion === mission.questions.length - 1;
-}
 
-function nextQuestion() {
-    if (isLastQuestion()) {
-        finishMission();
-        return;
+    if (state.currentQuestion + 1 < mission.questions.length) {
+        state.currentQuestion += 1;
+        saveState();
+        renderQuestion();
+    } else {
+        state.currentMission += 1;
+        state.currentQuestion = 0;
+        saveState();
+
+        if (state.currentMission >= missions.length) {
+            renderResults();
+        } else {
+            renderMissionSummary(mission);
+        }
     }
-
-    state.currentQuestion++;
-    saveState();
-    renderQuestion();
 }
 
-function finishMission() {
-    const mission = missions[state.currentMission];
+function renderMissionSummary(completedMission) {
+    setProgress((state.currentMission / missions.length) * 100);
 
     $("app").innerHTML = `
-        <section class="result-card card center">
+        <section class="card">
             <div class="eyebrow">Missão concluída</div>
-            <h1>${mission.title}</h1>
-
-            <p>
-                Você concluiu esta etapa da jornada.
-                Antes de avançar, confira a microlição recomendada.
-            </p>
+            <h1 class="section-title">${completedMission.title}</h1>
+            <p class="section-subtitle">Você concluiu a primeira etapa da jornada.</p>
 
             <div class="microlesson">
-                <h3>${microLessons[mission.id].title}</h3>
-                <p>${microLessons[mission.id].text}</p>
+                <strong>Síntese prática:</strong>
+                <p style="margin-bottom: 0;">${completedMission.microlesson}</p>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat">
-                    <span class="number">${state.topicStats[mission.id].score}</span>
-                    <span class="label">pontos na missão</span>
-                </div>
-                <div class="stat">
-                    <span class="number">${state.topicStats[mission.id].correct}</span>
-                    <span class="label">decisões adequadas</span>
-                </div>
-                <div class="stat">
-                    <span class="number">${mission.questions.length}</span>
-                    <span class="label">situações analisadas</span>
-                </div>
+            <div class="button-row">
+                <button class="btn btn-primary" onclick="renderMissionMap()">
+                    Continuar para o mapa
+                </button>
             </div>
-
-            <button class="btn btn-primary" onclick="advanceAfterMission()">
-                Continuar jornada
-            </button>
         </section>
     `;
 }
 
-function advanceAfterMission() {
-    state.currentMission++;
-
-    if (state.currentMission >= missions.length) {
-        state.screen = "result";
-        saveState();
-        renderResult();
-        return;
-    }
-
-    state.currentQuestion = 0;
-    state.screen = "missions";
-    saveState();
-    renderMissionMap();
-}
-
-function getCompletedMissionCount() {
-    return Math.min(state.currentMission, missions.length);
-}
-
-function getPercentage(correct, total) {
-    if (!total) return 0;
-    return Math.round((correct / total) * 100);
-}
-
-function getRecommendations() {
-    return missions
-        .map(mission => {
-            const stats = state.topicStats[mission.id];
-            const percentage = getPercentage(stats.correct, stats.total);
-
-            return {
-                mission,
-                percentage
-            };
-        })
-        .sort((a, b) => a.percentage - b.percentage);
-}
-
-function renderResult() {
+function renderResults() {
     setProgress(100);
-
-    const accuracy = getPercentage(state.correctAnswers, state.totalAnswers);
-    const recommendations = getRecommendations();
+    const percent = state.maxScore > 0 ? Math.round((state.score / state.maxScore) * 100) : 0;
 
     $("app").innerHTML = `
         <section class="card">
-            <div class="center">
-                <div class="eyebrow">Jornada concluída</div>
-                <h1>Seu mapa de autoverificação</h1>
-                <p class="section-subtitle">
-                    O resultado abaixo serve como orientação educativa.
-                    Ele não representa uma avaliação profissional ou institucional.
-                </p>
-            </div>
+            <div class="eyebrow">Resultado final</div>
+            <h1 class="section-title">Diagnóstico concluído</h1>
+            <p class="section-subtitle">
+                Confira seu desempenho nas duas missões desta etapa e as recomendações práticas.
+            </p>
 
             <div class="stats-grid">
                 <div class="stat">
-                    <span class="number">${state.score}</span>
-                    <span class="label">pontos obtidos</span>
+                    <span class="number">${state.score}/${state.maxScore}</span>
+                    <span class="label">Pontuação total</span>
                 </div>
-
                 <div class="stat">
-                    <span class="number">${accuracy}%</span>
-                    <span class="label">decisões adequadas</span>
+                    <span class="number">${state.correctAnswers}/${state.totalAnswers}</span>
+                    <span class="label">Decisões seguras</span>
                 </div>
-
                 <div class="stat">
-                    <span class="number">${state.totalAnswers}</span>
-                    <span class="label">situações respondidas</span>
+                    <span class="number">${percent}%</span>
+                    <span class="label">Aproveitamento</span>
                 </div>
             </div>
 
-            <h2>Desempenho por tema</h2>
-
-            <div>
-                ${missions.map(mission => {
-                    const stats = state.topicStats[mission.id];
-                    const percentage = getPercentage(stats.correct, stats.total);
-
-                    return `
-                        <div class="topic-row">
-                            <div class="topic-label">
-                                <strong>${mission.title}</strong>
-                                <span>${percentage}%</span>
-                            </div>
-                            <div class="topic-track">
-                                <div class="topic-fill" style="width: ${percentage}%"></div>
-                            </div>
+            <h3>Desempenho por tema</h3>
+            ${missions.map(m => {
+                const stat = state.topicStats[m.id] || { correct: 0, total: m.questions.length };
+                const topicPct = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
+                return `
+                    <div class="topic-row">
+                        <div class="topic-label">
+                            <strong>${m.tag}</strong>
+                            <span>${stat.correct} de ${stat.total} (${topicPct}%)</span>
                         </div>
+                        <div class="topic-track">
+                            <div class="topic-fill" style="width: ${topicPct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join("")}
+
+            <h3 style="margin-top: 28px;">Microlições recomendadas</h3>
+            <div class="recommendation-grid">
+                ${missions.map(m => {
+                    const lesson = microLessons[m.id];
+                    return `
+                        <article class="recommendation">
+                            <span class="tag">${m.tag}</span>
+                            <h3>${lesson.title}</h3>
+                            <p>${lesson.text}</p>
+                        </article>
                     `;
                 }).join("")}
             </div>
 
-            <h2 style="margin-top: 34px;">Microlições recomendadas</h2>
-
-            <p class="section-subtitle">
-                As recomendações abaixo priorizam os temas em que houve menor
-                percentual de decisões adequadas.
-            </p>
-
-            <div class="recommendation-grid">
-                ${recommendations.slice(0, 3).map(item => `
-                    <article class="recommendation">
-                        <span class="tag">${item.percentage}% de acerto</span>
-                        <h3>${item.mission.title}</h3>
-                        <p>${microLessons[item.mission.id].text}</p>
-                        <button class="btn btn-secondary"
-                                onclick="showMicroLesson('${item.mission.id}')">
-                            Ver microlição
-                        </button>
-                    </article>
-                `).join("")}
-            </div>
-
-            <div id="lessonArea"></div>
-
-            <div class="notice">
-                <strong>Próximo passo:</strong>
-                em uma versão futura, essas recomendações podem levar o usuário
-                diretamente para novos desafios específicos do tema em que
-                apresentou maior dificuldade.
-            </div>
-
             <div class="button-row">
-                <button class="btn btn-primary" onclick="restartJourney()">
-                    Refazer jornada
-                </button>
-
-                <button class="btn btn-ghost" onclick="goHome()">
-                    Voltar ao início
-                </button>
+                <button class="btn btn-primary" onclick="restartAll()">Refazer jornada</button>
+                <button class="btn btn-ghost" onclick="renderMissionMap()">Voltar ao mapa</button>
             </div>
         </section>
     `;
 }
 
-function showMicroLesson(topic) {
-    const lesson = microLessons[topic];
-
-    $("lessonArea").innerHTML = `
-        <div class="microlesson">
-            <h3>${lesson.title}</h3>
-            <p>${lesson.text}</p>
-        </div>
-    `;
-
-    $("lessonArea").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-}
-
-function restartJourney() {
+function restartAll() {
     clearSavedState();
-    startJourney();
-}
-
-function goHome() {
-    clearSavedState();
-    resetState();
     renderHome();
 }
 
-function resumeIfPossible() {
-    const saved = localStorage.getItem("jornadaSeguranca");
-
-    if (saved) {
-        const shouldResume = confirm(
-            "Existe uma jornada salva neste navegador. Deseja continuar de onde parou?"
-        );
-
-        if (shouldResume && loadState()) {
-            if (state.currentMission >= missions.length) {
-                renderResult();
-            } else if (state.screen === "mission") {
-                renderQuestion();
-            } else {
-                renderMissionMap();
-            }
-            return;
-        }
-
-        clearSavedState();
-    }
-
-    resetState();
+// Inicialização
+if (loadState() && state.currentMission < missions.length) {
+    renderMissionMap();
+} else {
+    clearSavedState();
     renderHome();
 }
-
-resumeIfPossible();
