@@ -26,7 +26,9 @@ html {
 
 body {
     margin: 0;
-    background: var(--background);
+    background-color: var(--background);
+    background-image: radial-gradient(#cbd8e4 1px, transparent 1px);
+    background-size: 24px 24px;
     color: var(--text);
     font-family: Inter, Arial, Helvetica, sans-serif;
     line-height: 1.55;
@@ -60,7 +62,8 @@ button {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 4px 12px rgba(23, 74, 126, 0.25);
     color: white;
     display: grid;
     place-items: center;
@@ -126,6 +129,21 @@ button {
 .hero {
     padding: clamp(28px, 6vw, 64px);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
+}
+
+.hero-illustration {
+    margin: 0 auto 18px;
+    display: flex;
+    justify-content: center;
+    animation: floatShield 4s ease-in-out infinite;
+}
+
+@keyframes floatShield {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
 }
 
 .eyebrow {
@@ -171,6 +189,17 @@ h1, h2, h3 {
     background: #f7fafc;
     border: 1px solid var(--border);
     border-radius: 14px;
+}
+
+.info-icon {
+    width: 38px;
+    height: 38px;
+    margin: 0 auto 10px;
+    border-radius: 10px;
+    background: #e3eef8;
+    color: var(--primary);
+    display: grid;
+    place-items: center;
 }
 
 .info-item strong {
@@ -243,14 +272,38 @@ h1, h2, h3 {
 }
 
 .mission-card {
+    position: relative;
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 22px;
     background: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mission-card:not(.locked):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(20, 50, 80, 0.12);
+    border-color: var(--secondary);
 }
 
 .mission-card.locked {
     opacity: 0.58;
+}
+
+.mission-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e6f0f8, #d4e6f4);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+}
+
+.mission-icon-badge.locked {
+    background: #eef2f6;
+    color: var(--muted);
 }
 
 .mission-number {
@@ -463,6 +516,12 @@ h1, h2, h3 {
     padding: 20px;
     border-top: 1px solid var(--border);
     background: white;
+}
+
+.footer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 @media (max-width: 760px) {
